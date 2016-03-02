@@ -29,5 +29,6 @@ module TodoListApi
         resource '*', :headers => :any, :methods => [:get, :post, :patch, :delete]
       end
     end
+    config.autoload_paths << Rails.root.join('lib')
   end
 end
