@@ -10,6 +10,7 @@ gem 'spring', :group => :development
 
 gem 'sqlite3'
 
+gem 'rack-cors', '~> 0.4.0'
 
 
 # To use ActiveModel has_secure_password
