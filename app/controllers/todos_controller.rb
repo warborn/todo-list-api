@@ -1,6 +1,13 @@
 class TodosController < ApplicationController
   before_action :set_todo, only: [:show, :update, :destroy, :completed]
 
+  def import
+    count = Todo.import params[:file]
+    render json: {
+      todos_imported: count
+    }, status: :created, location: @todo
+  end
+
   # GET /todos
   # GET /todos.json
   def index

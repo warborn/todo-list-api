@@ -15,7 +15,24 @@ class Todo < ActiveRecord::Base
     else
       nil
     end
-    # completed_at
+  end
+
+  def self.assign_from_row(row)
+    todo = Todo.where(name: row[:name]).first_or_initialize
+    todo.assign_attributes row.to_hash.slice(:name)
+    todo
+  end
+
+  def self.import(file)
+    counter = 0
+    # filename = File.join Rails.root, "todos.csv"
+    CSV.foreach(file.path, headers: true, header_converters: :symbol) do |row|
+      todo = Todo.assign_from_row(row)
+      if todo.save
+        counter += 1
+      end
+    end
+    counter
   end
 
   private
