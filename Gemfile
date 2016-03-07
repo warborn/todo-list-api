@@ -14,6 +14,10 @@ gem 'rack-cors', '~> 0.4.0'
 
 gem 'active_model_serializers', github: "rails-api/active_model_serializers"
 
+group :development, :test do
+  gem 'hirb', '~> 0.7.3'
+end
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
