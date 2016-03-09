@@ -23,18 +23,6 @@ class Todo < ActiveRecord::Base
     todo
   end
 
-  def self.import(file)
-    counter = 0
-    # filename = File.join Rails.root, "todos.csv"
-    CSV.foreach(file.path, headers: true, header_converters: :symbol) do |row|
-      todo = Todo.assign_from_row(row)
-      if todo.save
-        counter += 1
-      end
-    end
-    counter
-  end
-
   private
 
   def set_completed_at

@@ -2,10 +2,19 @@ class TodosController < ApplicationController
   before_action :set_todo, only: [:show, :update, :destroy, :completed]
 
   def import
-    count = Todo.import params[:file]
-    render json: {
-      todos_imported: count
-    }, status: :created, location: @todo
+    @import = User::Import.new todo_import_params
+    if @import.save
+      render json: {
+        new_todos: @import.serialized(@import.new_todos),
+        updated_todos: @import.serialized(@import.updated_todos),
+        todos_imported: @import.imported_count,
+        todos_updated:  @import.updated_count
+      }, status: :created, location: @todo
+    else
+      render json: {
+        errors: @import.errors
+      }, status: :unprocessable_entity
+    end
   end
 
   # GET /todos
@@ -70,5 +79,9 @@ class TodosController < ApplicationController
 
     def todo_params
       params.require(:todo).permit(:name, :completed)
+    end
+
+    def todo_import_params
+      params.require(:todo_import).permit(:file)
     end
 end

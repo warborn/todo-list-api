@@ -16,6 +16,7 @@ gem 'active_model_serializers', github: "rails-api/active_model_serializers"
 
 group :development, :test do
   gem 'hirb', '~> 0.7.3'
+  gem 'byebug', '~> 8.2', '>= 8.2.2'
 end
 
 # To use ActiveModel has_secure_password
